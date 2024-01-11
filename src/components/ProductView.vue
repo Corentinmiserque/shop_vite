@@ -8,13 +8,13 @@
     <picture class="is-128x128">
         <img :src="product.picture" alt="Product Image">
       </picture>
-
+      <time :datetime="product.registered.substr(0,10)">{{ date }}</time>>
       <button @click="toggleVisibility">Delete</button>
   </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits, computed } from 'vue';
 
 
 const props = defineProps({
@@ -29,6 +29,11 @@ const emits = defineEmits({
     default: () => ([]) 
   }
 });
+
+const date = computed( () => {
+  return new Date(props.product.registered.substr(0,10)).toLocaleDateString()
+
+})
 
 const toggleVisibility = () => {
 
