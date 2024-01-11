@@ -7,7 +7,7 @@
       <input type="text" v-model="newContact.name" id="name" >
       
       <label for="email">Email:</label>
-      <input type="email" id="email"v-model="newContact.email" >
+      <input type="email" id="email" v-model="newContact.email" >
       
       
       <button type="submit">Envoyer</button>

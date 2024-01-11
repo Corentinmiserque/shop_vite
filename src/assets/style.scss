@@ -1,0 +1,22 @@
+.shop{width: 40vw;}
+.product{
+    width: 40vw;
+    position: fixed;
+    top: 25%;
+    left: 40%;
+}
+.section{
+    display: flex;
+}
+
+img{
+    width: 100px;
+}
+
+.hidden{
+    display: none;
+}
+
+.visible{
+    display: flex;
+}
