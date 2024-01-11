@@ -1,14 +1,14 @@
 
     <template>
       <div class="section">
-        <div class="shop">
-    <li v-for="product in products" :key="product._id" @click="selectProduct(product)" :data-id="product.index"  :class=" product.isActive ?  'visible': 'hidden' ">
-      <picture class="is-128x128">
-        <img :src="product.picture" alt="Product Image">
-      </picture>
-      <h2>{{ product.name }}</h2>
-    </li>
-  </div>
+        <div v-if="products.length > 0" class="shop">
+      <li v-for="product in products" :key="product._id" @click="selectProduct(product)" :data-id="product.index" :class="product.isActive ? 'visible' : 'hidden'">
+        <picture class="is-128x128">
+          <img :src="product.picture" alt="Product Image">
+        </picture>
+        <h2>{{ product.name }}</h2>
+      </li>
+    </div>
   <ProductView :product="selectedProduct" v-if="selectedProduct" @productDeleted="handleProductDeleted" />
       </div>
   
@@ -22,11 +22,19 @@ import { ref } from 'vue';
 
 const selectedProduct = ref(null);
 
+const selectProduct = (product) => {
+  selectedProduct.value = product;
+};
 
+const handleProductDeleted = (deletedProduct) => {
+  console.log(`Product deleted: ${deletedProduct.name}`);
+  // alert(`${deletedProduct.name} parent`);
 
+  selectedProduct.value.isActive = false;
+  // alert(`${selectedProduct.value.name}'s isActive: ${selectedProduct.value.isActive}`);
+};
 
-
-const products = [
+const products = ref([
 {
   "_id": "659fba791c9bd6238e82f124",
   "index": 0,
@@ -286,24 +294,7 @@ const products = [
   "about": "Officia voluptate pariatur Lorem labore Lorem aute minim dolor et mollit. Cupidatat pariatur ullamco enim veniam adipisicing aliquip adipisicing excepteur ad ullamco aliquip. Proident aliqua velit nostrud eu id mollit do enim aute dolor. Eu elit tempor do fugiat consequat occaecat dolore et dolore pariatur irure. Ea aliquip nisi officia laboris consectetur est et. Incididunt tempor dolor velit ipsum. Eu excepteur eiusmod mollit in proident laboris et elit dolore veniam voluptate.\r\n",
   "registered": "2016-07-02T03:00:40 -02:00",
   "categorie": "service"
-}]
-
-const selectProduct = (product) => {
-  selectedProduct.value = product;
-};
-
-const handleProductDeleted = (deletedProduct) => {
-  console.log(`Product deleted: ${deletedProduct.name}`);
-  alert(`${deletedProduct.name} parent`);
-
-  // Mettre à jour la propriété isActive du produit supprimé dans le tableau products
-  const productIndex = products.findIndex(p => p._id === deletedProduct._id);
-
-  products[productIndex].isActive = false;
-  selectedProduct.value.isActive = false;
-  alert(`${product.value.name}'s isActive: ${product.value.isActive}`);
-};
-
+}]);
 
 </script>
 
